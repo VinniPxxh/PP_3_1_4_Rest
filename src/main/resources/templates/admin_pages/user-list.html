@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN PAGE</title>
+</head>
+<body>
+<br>
+<div th:align="center" class="tg">
+    <h2>User List</h2>
+    <table border="5" cellpadding="15">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>EMAIL</th>
+            <th>SALARY</th>
+            <th>
+                <button><a href="/admin_pages/create-user">NEW</a></button>
+            </th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.id}">...</td>
+            <td th:text="${user.name}">...</td>
+            <td th:utext="${user.surname}">...</td>
+            <td th:utext="${user.email}">...</td>
+            <td th:utext="${user.salary}">...</td>
+            <td>
+                <button><a th:href="@{/admin_pages/{id}(id=${users.id})}">Details</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/admin_pages/{id}(id=${user.getId()})}">Update</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/admin_pages/user-delete/{id}(id=${user.id})}">Delete</a></button>
+            </td>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+    <td>
+        <button><a th:href="@{/logout}">LOGOUT</a></button>
+    </td>
+</div>
+</body>
+</html>

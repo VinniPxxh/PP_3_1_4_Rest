@@ -4,8 +4,42 @@
     <title>Spring Security Example</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<div th:align="center" class="tg">
+    <h2>User</h2>
+    <table border="5" cellpadding="15">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>DEPARTMENT</th>
+            <th>SALARY</th>
+        </tr>
+        <tr th:each="user:${oneUser}">
+            <td th:text="${oneUser.id}"></td>
+            <td th:text="${oneUser.name}"></td>
+            <td th:text="${oneUser.surname}"></td>
+            <td th:text="${oneUser.department}"></td>
+            <td th:text="${oneUser.salary}"></td>
+        <tr th:each="listUser:${listUser}">
+            <td th:text="${listUser.id}"></td>
+            <td th:text="${listUser.name}"></td>
+            <td th:text="${listUser.surname}"></td>
+            <td th:text="${listUser.department}"></td>
+            <td th:text="${listUser.salary}"></td>
+        </tr>
+    </table>
+    <br>
+    <td>
+        <button><a th:href="@{/user}">GO TO USER</a></button>
+    </td>
+    <br><br>
+    <td>
+        <button><a th:href="@{/listUser}">GO TO USER LIST</a></button>
+    </td>
+    <br><br><br>
+    <td>
+        <button><a th:href="@{/logout}">LOGOUT</a></button>
+    </td>
+</div>
 </body>
 </html>
