@@ -26,19 +26,19 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/admin_pages")
+    @GetMapping(value = "/admin_pages")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "/admin_pages/user-list";
     }
 
-    @GetMapping("/admin_pages")
+    @GetMapping(value = "/admin_pages")
     public String createUserForm(User user) {
         return "/admin_pages/create-user";
     }
 
-    @PostMapping("/admin_pages/user-create")
+    @PostMapping(value = "/admin_pages/user-create")
     public String createUser(User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/admin_pages/user-list";
@@ -50,7 +50,7 @@ public class UserController {
         return "/admin_pages/update-user";
     }
 
-    @PatchMapping("/admin_pages/update_user/{id}")
+    @PatchMapping(value = "/admin_pages/update_user/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/admin_pages/user-list";
