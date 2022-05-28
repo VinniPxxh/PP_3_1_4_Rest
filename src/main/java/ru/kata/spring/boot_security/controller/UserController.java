@@ -26,19 +26,19 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping(value = "/admin_pages")
+    @GetMapping(value = "/admin_pages/user-list")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "/admin_pages/user-list";
+        return "user-list";
     }
 
-    @GetMapping(value = "/admin_pages")
+    @GetMapping(value = "/admin_pages/create-user")
     public String createUserForm(User user) {
-        return "/admin_pages/create-user";
+        return "create-user";
     }
 
-    @PostMapping(value = "/admin_pages/user-create")
+    @PostMapping(value = "/admin_pages/user-create/{id}")
     public String createUser(User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/admin_pages/user-list";
@@ -47,10 +47,10 @@ public class UserController {
     @GetMapping(value = "/admin_pages/update-user/{id}")
     public String formUpdateUser(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        return "/admin_pages/update-user";
+        return "update-user";
     }
 
-    @PatchMapping(value = "/admin_pages/update_user/{id}")
+    @PatchMapping(value = "/admin_pages/update_user")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/admin_pages/user-list";
@@ -65,6 +65,6 @@ public class UserController {
     @GetMapping("/admin_pages/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        return "user";
+        return "/user";
     }
 }

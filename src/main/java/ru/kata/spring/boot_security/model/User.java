@@ -6,11 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Set;
 
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 @Data
 public class User implements UserDetails {
     @Id
