@@ -16,6 +16,7 @@
             <th>SURNAME</th>
             <th>EMAIL</th>
             <th>SALARY</th>
+            <th>USERNAME</th>
             <th>
                 <button><a href="/create-user">NEW</a></button>
             </th>
@@ -27,7 +28,6 @@
             <td th:utext="${user.email}">...</td>
             <td th:utext="${user.salary}">...</td>
             <td th:utext="${user.username}">...</td>
-            <td th:utext="${user.password}">...</td>
             <td>
                 <button><a th:href="@{/{id}(id=${user.id})}">Info</a></button>
             </td>
