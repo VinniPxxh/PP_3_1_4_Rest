@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Spring Security Example</title>
 </head>
@@ -18,23 +18,19 @@
             <td th:text="${oneUser.id}"></td>
             <td th:text="${oneUser.name}"></td>
             <td th:text="${oneUser.surname}"></td>
-            <td th:text="${oneUser.department}"></td>
+            <td th:text="${oneUser.email}"></td>
             <td th:text="${oneUser.salary}"></td>
-        <tr th:each="listUser:${listUser}">
-            <td th:text="${listUser.id}"></td>
-            <td th:text="${listUser.name}"></td>
-            <td th:text="${listUser.surname}"></td>
-            <td th:text="${listUser.department}"></td>
-            <td th:text="${listUser.salary}"></td>
+            <tr th:each="findAll:${user}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.surname}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.salary}"></td>
         </tr>
     </table>
     <br>
     <td>
-        <button><a th:href="@{/user}">GO TO USER</a></button>
-    </td>
-    <br><br>
-    <td>
-        <button><a th:href="@{/listUser}">GO TO USER LIST</a></button>
+        <button><a th:href="@{/user-list}">GO TO USER LIST</a></button>
     </td>
     <br><br><br>
     <td>

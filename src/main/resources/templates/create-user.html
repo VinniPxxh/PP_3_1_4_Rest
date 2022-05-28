@@ -8,7 +8,7 @@
 <br>
 <div align="center">
     <h2>New User</h2>
-    <form th:action="@{/admin_pages/user-create}" method="post">
+    <form th:action="@{/user-create}" method="post">
         <table border="5" cellpadding="15">
             <tr>
                 <td>Name:</td>
@@ -25,6 +25,14 @@
             <tr>
                 <td>Salary:</td>
                 <td><input name="salary"/></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input name="username"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input name="password"/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Add"></td>

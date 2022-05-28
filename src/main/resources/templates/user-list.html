@@ -16,9 +16,8 @@
             <th>SURNAME</th>
             <th>EMAIL</th>
             <th>SALARY</th>
-            <th>USERNAME</th>
             <th>
-                <button><a href="/admin_pages/create-user">NEW</a></button>
+                <button><a href="/create-user">NEW</a></button>
             </th>
         </tr>
         <tr th:each="user : ${users}">
@@ -28,14 +27,15 @@
             <td th:utext="${user.email}">...</td>
             <td th:utext="${user.salary}">...</td>
             <td th:utext="${user.username}">...</td>
+            <td th:utext="${user.password}">...</td>
             <td>
-                <button><a th:href="@{/admin_pages/{id}(id=${user.id})}">Details</a></button>
+                <button><a th:href="@{/{id}(id=${user.id})}">Info</a></button>
             </td>
             <td>
-                <button><a th:href="@{/admin_pages/{id}(id=${user.getId()})}">Update</a></button>
+                <button><a th:href="@{/update-user/{id}(id=${user.id})}">Update</a></button>
             </td>
             <td>
-                <button><a th:href="@{/admin_pages/user-delete/{id}(id=${user.id})}">Delete</a></button>
+                <button><a th:href="@{/user-delete/{id}(id=${user.id})}">Delete</a></button>
             </td>
             </td>
         </tr>
@@ -47,3 +47,4 @@
 </div>
 </body>
 </html>
+

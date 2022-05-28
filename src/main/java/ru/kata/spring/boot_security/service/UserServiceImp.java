@@ -34,13 +34,13 @@ public class UserServiceImp implements UserDetailsService, UserService {
         userRepository.delete(user);
     }
 
-    public User findByName(String name) {
-        return userRepository.findByName(name);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByName(username);
+        return userRepository.findByUsername(username);
     }
 }

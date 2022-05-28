@@ -22,49 +22,49 @@ public class UserController {
 
     @GetMapping("/user")
     public String oneUser(Model model, Principal principal) {
-        model.addAttribute("oneUser", userService.findByName(principal.getName()));
+        model.addAttribute("oneUser", userService.findByUsername(principal.getName()));
         return "user";
     }
 
-    @GetMapping(value = "/admin_pages/user-list")
+    @GetMapping(value = "/user-list")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "user-list";
     }
 
-    @GetMapping(value = "/admin_pages/create-user")
+    @GetMapping(value = "/create-user")
     public String createUserForm(User user) {
         return "create-user";
     }
 
-    @PostMapping(value = "/admin_pages/user-create/{id}")
+    @PostMapping(value = "/user-create")
     public String createUser(User user) {
         userService.addOrUpdateUser(user);
-        return "redirect:/admin_pages/user-list";
+        return "redirect:/user-list";
     }
 
-    @GetMapping(value = "/admin_pages/update-user/{id}")
+    @GetMapping(value = "/update-user/{id}")
     public String formUpdateUser(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "update-user";
     }
 
-    @PatchMapping(value = "/admin_pages/update_user")
+    @PostMapping(value = "/update-user/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
-        return "redirect:/admin_pages/user-list";
+        return "redirect:/user-list";
     }
 
-    @GetMapping(value = "/admin_pages/delete/{id}")
+    @GetMapping(value = "/user-delete/{id}")
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
-        return "redirect:/admin_pages/user-list";
+        return "redirect:/user-list";
     }
 
-    @GetMapping("/admin_pages/{id}")
+    @GetMapping("/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
-        return "/user";
+        return "user";
     }
 }
