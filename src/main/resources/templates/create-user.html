@@ -8,31 +8,35 @@
 <br>
 <div align="center">
     <h2>New User</h2>
-    <form th:action="@{/user-create}" method="POST" th:object="${user}">
+    <form th:action="@{/user-create}" method="post" th:object="${user}">
         <table border="5" cellpadding="15">
             <tr>
+                <td>ID:</td>
+                <td><input type= "hidden" name="id" th:field="*{id}"/></td>
+            </tr>
+            <tr>
                 <td>Name:</td>
-                <td><input name="name"/></td>
+                <td><input type="text" name="name" th:field="*{name}"/></td>
             </tr>
             <tr>
                 <td>Surname:</td>
-                <td><input name="surname"/></td>
+                <td><input type="text" name="surname" th:field="*{surname}"/></td>
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><input name="email"/></td>
+                <td><input type="text" name="email" th:field="*{email}"/></td>
             </tr>
             <tr>
                 <td>Salary:</td>
-                <td><input name="salary"/></td>
+                <td><input type="number" name="salary" th:field="*{salary}"/></td>
             </tr>
             <tr>
                 <td>Username:</td>
-                <td><input name="username"/></td>
+                <td><input type= "text" name="username" th:field="*{username}"/></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input name="password"/></td>
+                <td><input type= "text" name="password" th:field="*{password}"/></td>
             </tr>
             <br>
             <br>
