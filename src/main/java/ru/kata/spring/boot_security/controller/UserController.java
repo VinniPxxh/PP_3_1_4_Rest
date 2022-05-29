@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.model.Role;
 import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.service.UserService;
 
@@ -46,7 +47,10 @@ public class UserController {
 
     @GetMapping(value = "/update-user/{id}")
     public String formUpdateUser(@PathVariable Long id, Model model) {
+        User user = userService.getUserById(id);
+        List<Role> listRoles = userService.listRoles();
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("listRoles", listRoles);
         return "update-user";
     }
 

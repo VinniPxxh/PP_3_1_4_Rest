@@ -8,8 +8,8 @@
 <br>
 <div th:align="center" class="tg">
     <h2>User List</h2>
-    <table border="5" cellpadding="15">
-
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
         <tr>
             <th>ID</th>
             <th>NAME</th>
@@ -17,10 +17,12 @@
             <th>EMAIL</th>
             <th>SALARY</th>
             <th>USERNAME</th>
+            <th>USER ROLE</th>
             <th>
                 <button><a href="/create-user">NEW</a></button>
             </th>
         </tr>
+        </thead>
         <tr th:each="user : ${users}">
             <td th:utext="${user.id}">...</td>
             <td th:text="${user.name}">...</td>
@@ -28,6 +30,7 @@
             <td th:utext="${user.email}">...</td>
             <td th:utext="${user.salary}">...</td>
             <td th:utext="${user.username}">...</td>
+            <td th:text="${user.roles}">...</td>
             <td>
                 <button><a th:href="@{/{id}(id=${user.id})}">Info</a></button>
             </td>

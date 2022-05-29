@@ -6,28 +6,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.model.Role;
 import ru.kata.spring.boot_security.model.User;
+import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.List;
+
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     @Autowired
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void addOrUpdateUser(User user) {
         userRepository.save(user);
     }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     public User getUserById(Long id) {
-        return userRepository.getOne(id);
+        return userRepository.findById(id).get();
+    }
+    public List<Role> listRoles() {
+        return roleRepository.findAll();
     }
 
     public void deleteById(User user) {
