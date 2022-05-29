@@ -30,11 +30,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id",
             referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(
             name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles = new HashSet<>();
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
-
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

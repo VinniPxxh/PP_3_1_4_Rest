@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,13 +14,16 @@ import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
@@ -29,6 +34,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
         userRepository.save(user);
     }
 
+
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -36,6 +43,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id).get();
     }
+
     public List<Role> listRoles() {
         return roleRepository.findAll();
     }
@@ -51,6 +59,16 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Could not find user");
+        }
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(), grantedAuthorities);
     }
 }

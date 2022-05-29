@@ -35,7 +35,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/create-user")
-    public String createUserForm(User user) {
+    public String createUserForm(Model model) {
+        List<Role> listRoles = userService.listRoles();
+        model.addAttribute("listRoles", listRoles);
         return "create-user";
     }
 

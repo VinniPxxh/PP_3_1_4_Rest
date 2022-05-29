@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>NEW USER</title>
@@ -8,7 +8,7 @@
 <br>
 <div align="center">
     <h2>New User</h2>
-    <form th:action="@{/user-create}" method="post">
+    <form th:action="@{/user-create}" method="POST" th:object="${user}">
         <table border="5" cellpadding="15">
             <tr>
                 <td>Name:</td>
@@ -34,10 +34,18 @@
                 <td>Password:</td>
                 <td><input name="password"/></td>
             </tr>
-            <tr>
-                <td>User role:</td>
-                <td><input name="roles"/></td>
-            </tr>
+            <br>
+            <br>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Roles: </label>
+                <div class="col-8">
+                    <th:block th:each="role: ${listRoles}">
+                        <input type="checkbox" th:field="*{roles}"
+                               th:text="${role.name}" th:value="${role.id}" class="m-2"/>
+                    </th:block>
+                </div>
+            </div>
+            </br>
             <tr>
                 <td colspan="2"><input type="submit" value="Add"></td>
             </tr>

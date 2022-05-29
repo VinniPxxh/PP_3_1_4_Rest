@@ -30,7 +30,8 @@
             <td th:utext="${user.email}">...</td>
             <td th:utext="${user.salary}">...</td>
             <td th:utext="${user.username}">...</td>
-            <td th:text="${user.roles}">...</td>
+            <td th:each="role : ${user.roles}">
+                <span th:text="${role.name}"> </span> </td>
             <td>
                 <button><a th:href="@{/{id}(id=${user.id})}">Info</a></button>
             </td>
