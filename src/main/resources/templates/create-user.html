@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>NEW USER</title>
@@ -41,10 +41,11 @@
                 <div class="col-8">
                     <th:block th:each="role: ${listRoles}">
                         <input type="checkbox" th:field="*{roles}"
-                               th:text="${role.name}" th:value="${role.id}" class="m-2"/>
+                               th:text="${role.name}" th:value="${role.id}" class="m-2" />
                     </th:block>
                 </div>
             </div>
+            </br>
             </br>
             <tr>
                 <td colspan="2"><input type="submit" value="Add"></td>
