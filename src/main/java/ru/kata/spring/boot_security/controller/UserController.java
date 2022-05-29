@@ -34,16 +34,15 @@ public class UserController {
         return "user-list";
     }
 
-    @GetMapping(value = "/create-user")
-    public String createUserForm(Model model,User user) {
+    @GetMapping("/create-user")
+    public String createUserForm(@ModelAttribute("user")User user, Model model) {
         List<Role> listRoles = userService.listRoles();
         model.addAttribute("listRoles", listRoles);
-        model.addAttribute("user", user);
         return "create-user";
     }
 
-    @PostMapping(value = "/user-create")
-    public String createUser(User user) {
+    @PostMapping("/user-create")
+    public String createUser(@ModelAttribute("user")User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/user-list";
     }
