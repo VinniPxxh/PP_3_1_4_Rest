@@ -11,10 +11,6 @@
     <form th:action="@{/user-create}" method="post" th:object="${user}">
         <table border="5" cellpadding="15">
             <tr>
-                <td>ID:</td>
-                <td><input type= "hidden" name="id" th:field="*{id}"/></td>
-            </tr>
-            <tr>
                 <td>Name:</td>
                 <td><input type="text" name="name" th:field="*{name}"/></td>
             </tr>
