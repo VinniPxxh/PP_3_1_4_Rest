@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.model.Role;
@@ -35,14 +36,15 @@ public class UserController {
     }
 
     @GetMapping("/create-user")
-    public String createUserForm(@ModelAttribute("user")User user, Model model) {
+    public String createUserForm(@ModelAttribute("user") User user, Model model) {
         List<Role> listRoles = userService.listRoles();
         model.addAttribute("listRoles", listRoles);
         return "create-user";
     }
 
     @PostMapping("/user-create")
-    public String createUser(@ModelAttribute("user")User user) {
+    @Transactional
+    public String createUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/user-list";
     }
@@ -57,12 +59,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/update-user/{id}")
+    @Transactional
     public String updateUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/user-list";
     }
 
     @GetMapping(value = "/user-delete/{id}")
+    @Transactional
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/user-list";

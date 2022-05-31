@@ -35,7 +35,6 @@ public class UserServiceImp implements UserDetailsService, UserService {
     }
 
 
-
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -59,16 +58,6 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), grantedAuthorities);
+        return userRepository.findByUsername(username);
     }
 }

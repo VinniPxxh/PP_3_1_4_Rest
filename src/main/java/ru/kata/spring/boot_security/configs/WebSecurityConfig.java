@@ -10,14 +10,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.kata.spring.boot_security.repository.RoleRepository;
+import ru.kata.spring.boot_security.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final UserDetailsService userDetailsService;
+    private final SuccessUserHandler successUserHandler;
+    private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private SuccessUserHandler successUserHandler;
+    public WebSecurityConfig(UserDetailsService userDetailsService, SuccessUserHandler successUserHandler,
+                             RoleRepository roleRepository, UserRepository userRepository) {
+        this.userDetailsService = userDetailsService;
+        this.successUserHandler = successUserHandler;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
