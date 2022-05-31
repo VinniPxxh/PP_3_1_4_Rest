@@ -31,6 +31,9 @@ public class User implements UserDetails {
             name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
 
+    private User user;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
