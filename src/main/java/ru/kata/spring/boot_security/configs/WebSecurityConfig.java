@@ -10,8 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.repository.RoleRepository;
-import ru.kata.spring.boot_security.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @EnableWebSecurity
@@ -19,16 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final SuccessUserHandler successUserHandler;
-    private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
+
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService, SuccessUserHandler successUserHandler,
-                             RoleRepository roleRepository, UserRepository userRepository) {
+    public WebSecurityConfig(UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
     }
 
 
@@ -42,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user-list/**").hasRole("ADMIN")
-                .antMatchers("/", "/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/api/admin/user-list/**").hasRole("ADMIN")
+                .antMatchers("/", "/api/user/userpage").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

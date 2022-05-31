@@ -1,8 +1,7 @@
 package ru.kata.spring.boot_security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,10 +12,7 @@ import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
