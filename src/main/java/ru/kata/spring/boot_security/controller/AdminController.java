@@ -38,7 +38,6 @@ public class AdminController {
     }
 
     @PostMapping("/api/admin/user-create")
-    @Transactional
     public String createUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/api/admin/user-list";
@@ -54,14 +53,12 @@ public class AdminController {
     }
 
     @PostMapping(value = "/api/admin/update-user/{id}")
-    @Transactional
     public String updateUser(@ModelAttribute("user") User user) {
         userService.addOrUpdateUser(user);
         return "redirect:/api/admin/user-list";
     }
 
     @GetMapping(value = "/api/admin/user-delete/{id}")
-    @Transactional
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/admin/user-list";

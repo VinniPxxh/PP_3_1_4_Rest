@@ -26,7 +26,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
-
+    @Transactional
     public void addOrUpdateUser(User user) {
         userRepository.save(user);
     }
@@ -43,7 +43,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
     public List<Role> listRoles() {
         return roleRepository.findAll();
     }
-
+    @Transactional
     public void deleteById(User user) {
         userRepository.delete(user);
     }
