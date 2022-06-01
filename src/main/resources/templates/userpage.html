@@ -1,41 +1,100 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>User panel</title>
 </head>
 <body>
-<div th:align="center" class="tg">
-    <h2>User</h2>
-    <table border="5" cellpadding="15">
-        <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>SURNAME</th>
-            <th>DEPARTMENT</th>
-            <th>SALARY</th>
-        </tr>
-        <tr th:each="user:${oneUser}">
-            <td th:text="${oneUser.id}"></td>
-            <td th:text="${oneUser.name}"></td>
-            <td th:text="${oneUser.surname}"></td>
-            <td th:text="${oneUser.email}"></td>
-            <td th:text="${oneUser.salary}"></td>
-            <tr th:each="findAll:${user}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.surname}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.salary}"></td>
-        </tr>
-    </table>
-    <br>
-    <td>
-        <button><a th:href="@{/api/admin/user-list}">GO TO USER LIST</a></button>
-    </td>
-    <br><br><br>
-    <td>
-        <button><a th:href="@{/logout}">LOGOUT</a></button>
-    </td>
+<nav class="navbar navbar-expand-xl navbar-dark text-white bg-dark">
+
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse show" id="navbarDark">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                <span class="align-middle font-weight-bold mr-1" th:text="${oneUser.getName()}"></span></b>
+                <span class="align-middle mr-1">with roles:</span>
+                <span class="align-middle" th:each="role:${oneUser.getRoles()}" th:text="${role.getName}">
+                    </span>
+            </ul>
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-dark text-secondary">Logout</button>
+        </form>
+
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="p-0 col-2">
+            <div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" href="/api/admin/adminpage" sec:authorize="hasRole('ROLE_ADMIN')"
+                   aria-controls="v-pills-home" aria-selected="false">Admin</a>
+                <a class="nav-link active" href="/api/user/userpage" sec:authorize="(hasAnyRole('ROLE_USER','ROLE_ADMIN'))"
+                   role="tab"
+                   aria-controls="v-pills-profile" aria-selected="true">User</a>
+            </div>
+        </div>
+
+        <div class="col-10 px-0">
+            <div class="container-fluid">
+                <h1>USER PAGE</h1>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>About user</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NAME</th>
+                                        <th>SURNAME</th>
+                                        <th>EMAIL</th>
+                                        <th>SALARY</th>
+                                        <th>USERNAME</th>
+                                        <th>ROLES</th>
+                                    </tr>
+
+                                    <td th:text="${oneUser.getId()}"></td>
+                                    <td th:text="${oneUser.getName()}"></td>
+                                    <td th:text="${oneUser.getSurname()}"></td>
+                                    <td th:text="${oneUser.getEmail()}"></td>
+                                    <td th:text="${oneUser.getSalary()}"></td>
+                                    <td th:text="${oneUser.getUsername()}"></td>
+
+                                    <td>
+                                        <li th:each="role: ${oneUser.getRoles()}" th:text="${role.getName()}"></li>
+                                    </td>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

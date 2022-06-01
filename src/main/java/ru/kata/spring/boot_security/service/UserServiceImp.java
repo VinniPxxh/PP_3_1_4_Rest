@@ -13,6 +13,7 @@ import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService {
@@ -27,7 +28,8 @@ public class UserServiceImp implements UserDetailsService, UserService {
         this.roleRepository = roleRepository;
     }
     @Transactional
-    public void addOrUpdateUser(User user) {
+    public void addOrUpdateUser(User user, Set<Role> roles) {
+        user.setRoles(roles);
         userRepository.save(user);
     }
 
