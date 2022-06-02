@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -37,9 +38,9 @@
     <div class="row">
         <div class="p-0 col-2">
             <div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" href="/api/admin/adminpage" sec:authorize="hasRole('ROLE_ADMIN')"
+                <a class="nav-link" href="/api/admin/adminpage"
                    aria-controls="v-pills-home" aria-selected="false">Admin</a>
-                <a class="nav-link active" href="/api/user/userpage" sec:authorize="(hasAnyRole('ROLE_USER','ROLE_ADMIN'))"
+                <a class="nav-link active" href="/api/user/userpage"
                    role="tab"
                    aria-controls="v-pills-profile" aria-selected="true">User</a>
             </div>
