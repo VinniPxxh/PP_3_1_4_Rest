@@ -47,7 +47,7 @@ public class AdminController {
         return "redirect:/api/admin/adminpage";
     }
 
-    @RequestMapping(value = "/api/admin/adminpage/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/api/admin/adminpage/delete/{id}")
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/admin/adminpage";
