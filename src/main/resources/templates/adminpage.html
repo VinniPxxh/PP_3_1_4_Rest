@@ -173,8 +173,11 @@
                                                             <label for="roles1"><b>Role</b></label>
                                                             <select multiple class="form-control form-control-sm"
                                                                     id="roles1" name="listRoles" size="2" required>
-                                                                <option value="1">ADMIN</option>
-                                                                <option value="2" selected>USER</option>
+                                                                <option th:each="role: ${roles}"
+                                                                        th:field="*{roles}"
+                                                                        th:text="${role.name}" th:value="${role.id}"
+                                                                        class="m-2"/>
+                                                                </th:block>
                                                             </select>
 
 
@@ -255,8 +258,11 @@
                                                             <select multiple class="form-control form-control-sm"
                                                                     id="roles2" name="listRoles" size="2" required
                                                                     disabled>
-                                                                <option value="1">ADMIN</option>
-                                                                <option value="2" selected>USER</option>
+                                                                <option th:each="role: ${roles}"
+                                                                        th:field="*{roles}"
+                                                                        th:text="${role.name}" th:value="${role.id}"
+                                                                        class="m-2" disabled/>
+                                                                </th:block>
                                                             </select>
 
 
@@ -313,8 +319,9 @@
                                 <label for="roles3"><b>Role</b></label>
                                 <select multiple class="form-control form-control-sm" id="roles3" name="listRoles"
                                         size="2" required>
-                                    <option value="1">ADMIN</option>
-                                    <option value="2" selected>USER</option>
+                                    <option th:each="role: ${roles}"
+                                            th:field="*{roles}"
+                                            th:text="${role.name}" th:value="${role.id}" class="m-2"/>
                                 </select>
 
                                 <br>

@@ -24,6 +24,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+
     }
     @Transactional
     @Override
