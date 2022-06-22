@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,11 +22,10 @@ import java.util.Set;
 public class UserServiceImp implements UserDetailsService, UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -34,11 +34,11 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Transactional
     @Override
     public void addOrUpdateUser(User user, Set<Role> roles) {
-        if (!passwordEncoder.matches(user.getPassword(), userRepository.findByUsername(user.getUsername()).getPassword())) {
-            userRepository.save(user);
+        if (user.getPassword().startsWith("$2a$10$") && user.getPassword().length() == 60) {
+            user.setPassword(user.getPassword());
+        } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        user.setRoles(roles);
         userRepository.save(user);
     }
 
