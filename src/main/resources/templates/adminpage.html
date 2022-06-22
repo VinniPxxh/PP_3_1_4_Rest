@@ -109,7 +109,7 @@
                                         <div class="modal fade" th:id="${'edituser'+user.getId()}" tabindex="-1"
                                              role="dialog"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <form th:action="@{/api/admin/adminpage/edit}" method="POST">
+                                            <form th:action="@{/api/admin/adminpage/edit?listRoles=1}" method="PATH">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -171,8 +171,8 @@
                                                             </div>
 
                                                             <label for="roles1"><b>Role</b></label>
-                                                            <select multiple class="form-control form-control-sm"
-                                                                    id="roles1" name="listRoles" size="2" required>
+                                                            <select  multiple class="form-control form-control-sm"
+                                                                    id="roles1" th:name="listRoles" size="2" required>
                                                                 <option th:each="role: ${roles}"
                                                                         th:field="*{roles}"
                                                                         th:text="${role.name}" th:value="${role.id}"
@@ -205,7 +205,7 @@
                                                                 data-dismiss="modal"></button>
                                                     </div>
                                                     <form th:method="DELETE"
-                                                          th:action="@{/api/admin/adminpage/delete/{id}(id=${user.id})}">
+                                                          th:action="@{/api/admin/adminpage/delete/{id}(id=${user.id})?listRoles=1}">
                                                         <div class="modal-body text-center">
 
                                                             <div class="form-group">
@@ -292,7 +292,7 @@
                         <h4>Add new User</h4>
                         <div class="col-md bg-white border">
                             <form align="center" class="offset-md-4 col-md-3 mt-4 mb-4" th:align="center"
-                                  th:action="@{/api/admin/adminpage/new}" th:object="${userMain}" method="POST">
+                                  th:action="@{/api/admin/adminpage/new?listUser=1}" th:object="${userMain}" method="POST">
 
                                 <label for="name3"><b>Name</b></label>
                                 <input th:name="name" th:type="text" class="form-control" id="name3"
@@ -317,7 +317,7 @@
                                        required/>
 
                                 <label for="roles3"><b>Role</b></label>
-                                <select multiple class="form-control form-control-sm" id="roles3" name="listRoles"
+                                <select multiple class="form-control form-control-sm" id="roles3" th:name="listRoles"
                                         size="2" required>
                                     <option th:each="role: ${roles}"
                                             th:field="*{roles}"
