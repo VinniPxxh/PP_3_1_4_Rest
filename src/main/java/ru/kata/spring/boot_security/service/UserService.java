@@ -9,6 +9,7 @@ import java.util.Set;
 
 public interface UserService {
     void saveUser(User user, long[] listRoles);
+
     void updateUser(User user, long[] listRoles);
 
     List<User> findAll();
@@ -20,6 +21,7 @@ public interface UserService {
     User findByUsername(String username);
 
     List<Role> listRoles();
+
     UserDetails loadUserByUsername(String username);
 
 }

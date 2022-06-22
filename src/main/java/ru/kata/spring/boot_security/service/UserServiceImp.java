@@ -48,6 +48,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
         user.setRoles(rolesSet);
         userRepository.save(user);
     }
+
     @Transactional
     @Override
     public void updateUser(User user, long[] role_id) {

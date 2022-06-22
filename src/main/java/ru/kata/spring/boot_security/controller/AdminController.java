@@ -32,19 +32,19 @@ public class AdminController {
         return "adminpage";
     }
 
-    @PostMapping("/api/admin/adminpage/new?listRoles=1")
-    public String addUser(User user, @RequestParam("listRoles") @PathVariable long[] role_id) {
+    @PostMapping("/api/admin/adminpage/new")
+    public String addUser(User user, @RequestParam("listRoles") long[] role_id) {
         userService.saveUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @PatchMapping("/api/admin/adminpage/edit?listRoles=1")
+    @PostMapping("/api/admin/adminpage/edit")
     public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
         userService.updateUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @DeleteMapping("/api/admin/adminpage/delete/{id}?listRoles=1")
+    @DeleteMapping("/api/admin/adminpage/delete/{id}")
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/admin/adminpage";
