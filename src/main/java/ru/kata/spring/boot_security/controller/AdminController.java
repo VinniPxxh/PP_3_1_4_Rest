@@ -6,11 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.model.Role;
 import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.service.UserService;
-
-import java.util.Set;
 
 @Controller
 @RequestMapping(name = "/api/admin")
@@ -35,19 +32,19 @@ public class AdminController {
         return "adminpage";
     }
 
-    @PostMapping("/api/admin/adminpage/new")
-    public String addUser(User user, @RequestParam("listRoles") long[] role_id) {
+    @PostMapping("/api/admin/adminpage/new?listRoles=1")
+    public String addUser(User user, @RequestParam("listRoles") @PathVariable long[] role_id) {
         userService.saveUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @PostMapping("/api/admin/adminpage/edit")
-    public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
+    @PostMapping("/api/admin/adminpage/edit?listRoles=1")
+    public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") @PathVariable long[] role_id) {
         userService.updateUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @DeleteMapping("/api/admin/adminpage/delete/{id}")
+    @DeleteMapping("/api/admin/adminpage/delete/{id}?listRoles=1")
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/admin/adminpage";
