@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +14,7 @@ import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +23,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
@@ -33,14 +34,32 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Transactional
     @Override
-    public void addOrUpdateUser(User user, Set<Role> roles) {
+    public void saveUser(User user, long[] role_id) {
+        Set<Role> rolesSet = new HashSet<>();
+        for (int i = 0; i < role_id.length; i++) {
+            rolesSet.add(roleRepository.findById(role_id[i]));
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        user.setRoles(role_id);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUser(User user, long[] role_id) {
+        Set<Role> rolesSet = new HashSet<>();
+        for (int i = 0; i < role_id.length; i++) {
+            rolesSet.add(roleRepository.findById(role_id[i]));
+        }
         if (user.getPassword().startsWith("$2a$10$") && user.getPassword().length() == 60) {
             user.setPassword(user.getPassword());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+        user.setRoles(role_id);
         userRepository.save(user);
     }
+
 
     @Override
     public List<User> findAll() {
@@ -70,8 +89,10 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
-
-
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Unknown user" + " " + username);
+        }
+        return user;
     }
 }

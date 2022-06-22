@@ -36,14 +36,14 @@ public class AdminController {
     }
 
     @PostMapping("/api/admin/adminpage/new")
-    public String addUser(User user, @RequestParam("listRoles") Set<Role> roles) {
-        userService.addOrUpdateUser(user, roles);
+    public String addUser(User user, @RequestParam("listRoles") long[] role_id) {
+        userService.saveUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
     @PostMapping("/api/admin/adminpage/edit")
-    public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") Set<Role> roles) {
-        userService.addOrUpdateUser(user, roles);
+    public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
+        userService.updateUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 

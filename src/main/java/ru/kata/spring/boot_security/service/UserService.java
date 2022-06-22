@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface UserService {
-    void addOrUpdateUser(User user, Set<Role> roles);
+    void saveUser(User user, long[] role_id);
+    void updateUser(User user, long[] role_id);
 
     List<User> findAll();
 

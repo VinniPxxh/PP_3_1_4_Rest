@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Users")
 @Data
+@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +32,6 @@ public class User implements UserDetails {
             referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(
             name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,5 +57,8 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setRoles(long[] roles) {
     }
 }
