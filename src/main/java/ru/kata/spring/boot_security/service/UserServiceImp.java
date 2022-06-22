@@ -23,7 +23,11 @@ public class UserServiceImp implements UserDetailsService, UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private Set<Role> roles;
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     @Autowired
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
@@ -34,14 +38,14 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Transactional
     @Override
-    public void saveUser(User user, long[] role_id) {
+    public void saveUser(User user, long[] listRoles) {
         Set<Role> rolesSet = new HashSet<>();
-        for (int i = 0; i < role_id.length; i++) {
-            rolesSet.add(roleRepository.findById(role_id[i]));
+        for (int i = 0; i < listRoles.length; i++) {
+            rolesSet.add(roleRepository.findById(listRoles[i]));
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        user.setRoles(role_id);
+        user.setRoles(rolesSet);
         userRepository.save(user);
     }
     @Transactional
@@ -56,7 +60,7 @@ public class UserServiceImp implements UserDetailsService, UserService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        user.setRoles(role_id);
+        user.setRoles(rolesSet);
         userRepository.save(user);
     }
 

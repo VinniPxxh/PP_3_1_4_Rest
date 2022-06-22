@@ -59,6 +59,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setRoles(long[] roles) {
-    }
 }
