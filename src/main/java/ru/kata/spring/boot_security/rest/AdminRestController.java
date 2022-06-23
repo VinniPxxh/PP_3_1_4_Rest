@@ -12,12 +12,10 @@ import ru.kata.spring.boot_security.service.UserService;
 @RequestMapping(name = "/api/restadmin")
 public class AdminRestController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminRestController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/api/restadmin/adminpage")
@@ -47,4 +45,5 @@ public class AdminRestController {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/restadmin/adminpage";
     }
+
 }

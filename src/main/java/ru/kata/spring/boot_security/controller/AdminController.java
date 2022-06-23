@@ -14,12 +14,10 @@ import ru.kata.spring.boot_security.service.UserService;
 public class AdminController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/api/admin/adminpage")
