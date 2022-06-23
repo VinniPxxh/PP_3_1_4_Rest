@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.service.UserService;
 
 import java.security.Principal;
@@ -20,8 +22,7 @@ public class UserRestController {
     }
 
     @GetMapping("/api/restuser/userpage")
-    public String oneUser(Model model, Principal principal) {
+    public void oneUser(Model model, Principal principal) {
         model.addAttribute("oneUser", userService.findByUsername(principal.getName()));
-        return "userpage";
     }
 }
