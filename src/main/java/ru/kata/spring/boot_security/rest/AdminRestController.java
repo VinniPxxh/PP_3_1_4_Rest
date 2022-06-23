@@ -1,12 +1,8 @@
 package ru.kata.spring.boot_security.rest;
 
-import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.service.UserService;
@@ -23,7 +19,7 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/api/restadmin/adminpage")
+    @GetMapping("/adminpage")
     public ResponseEntity<List<User>> userList() {
         final List<User> users = userService.findAll();
         return users != null && !users.isEmpty()
@@ -31,18 +27,18 @@ public class AdminRestController {
                 :new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/api/restadmin/adminpage/new")
+    @PostMapping("/adminpage/new")
     public ResponseEntity<?> addUser(User user, @RequestParam("listRoles") long[] role_id) {
         userService.saveUser(user, role_id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/restadmin/adminpage/edit")
+    @PutMapping("/adminpage/edit")
     public void update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
          userService.updateUser(user, role_id);
     }
 
-    @DeleteMapping("/api/restadmin/adminpage/delete/{id}")
+    @DeleteMapping("/adminpage/delete/{id}")
     public void removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
     }

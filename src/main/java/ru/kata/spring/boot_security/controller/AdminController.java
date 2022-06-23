@@ -20,7 +20,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/api/admin/adminpage")
+    @GetMapping("/adminpage")
     public String userList(Model model) {
         User user = (User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -30,19 +30,19 @@ public class AdminController {
         return "adminpage";
     }
 
-    @PostMapping("/api/admin/adminpage/new")
+    @PostMapping("/adminpage/new")
     public String addUser(User user, @RequestParam("listRoles") long[] role_id) {
         userService.saveUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @PostMapping("/api/admin/adminpage/edit")
+    @PostMapping("/adminpage/edit")
     public String update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
         userService.updateUser(user, role_id);
         return "redirect:/api/admin/adminpage";
     }
 
-    @DeleteMapping("/api/admin/adminpage/delete/{id}")
+    @DeleteMapping("/adminpage/delete/{id}")
     public String removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return "redirect:/api/admin/adminpage";

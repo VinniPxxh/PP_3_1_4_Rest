@@ -21,7 +21,7 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/api/restuser/userpage")
+    @GetMapping("/userpage")
     public void oneUser(Model model, Principal principal) {
         model.addAttribute("oneUser", userService.findByUsername(principal.getName()));
     }
