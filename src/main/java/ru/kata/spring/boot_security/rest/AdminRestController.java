@@ -28,13 +28,13 @@ public class AdminRestController {
     }
 
     @PostMapping("/adminpage/new")
-    public ResponseEntity<?> addUser(User user, @RequestParam("listRoles") long[] role_id) {
+    public ResponseEntity<?> addUser(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
         userService.saveUser(user, role_id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/adminpage/edit")
-    public void update(@ModelAttribute("user") User user, @RequestParam("listRoles") long[] role_id) {
+    public void update(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
          userService.updateUser(user, role_id);
     }
 
