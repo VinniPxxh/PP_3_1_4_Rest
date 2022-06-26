@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.service.UserService;
 
 @Controller
-@RequestMapping(name = "/api/admin")
+@RequestMapping(value = "/api/admin")
 public class AdminController {
 
     private final UserService userService;

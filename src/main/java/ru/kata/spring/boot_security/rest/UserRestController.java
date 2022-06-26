@@ -12,7 +12,7 @@ import ru.kata.spring.boot_security.service.UserService;
 import java.security.Principal;
 
 @RestController
-@RequestMapping(name = "/api/restuser")
+@RequestMapping(value = "/api/restuser")
 public class UserRestController {
     private final UserService userService;
 

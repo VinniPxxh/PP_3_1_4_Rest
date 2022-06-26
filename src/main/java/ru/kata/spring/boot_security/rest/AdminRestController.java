@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/api/restadmin")
+@RequestMapping(value = "/api/restadmin")
 public class AdminRestController {
     private final UserService userService;
 
