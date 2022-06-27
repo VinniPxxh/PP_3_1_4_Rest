@@ -1,54 +1,48 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link id="dark-theme-style" rel="stylesheet"/>
     <title>User panel</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-xl navbar-dark text-white bg-dark">
-
     <div class="container-fluid">
         <div class="collapse navbar-collapse show" id="navbarDark">
-            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-                <span class="align-middle font-weight-bold mr-1" th:text="${oneUser.getName()}"></span></b>
-                <span class="align-middle mr-1">with roles:</span>
-                <span class="align-middle" th:each="role:${oneUser.getRoles()}" th:text="${role.getName}">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0" id="navBarUser">
+                <span class="align-middle font-weight-bold mr-1"></span></b>
+                <span class="align-middle mr-1"></span>
+                <span class="align-middle">
                     </span>
             </ul>
         </div>
-
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="btn btn-dark text-secondary">Logout</button>
         </form>
-
     </div>
+    <a
+            href="javascript:void()"
+            class="btn btn-outline-info ml-auto font-weight-bold"
+            id="theme-toggler"
+            onclick="toggleTheme()"
+    ></a>
 </nav>
-
 <div class="container-fluid">
-
     <div class="row">
-        <div class="p-0 col-2">
-            <div class="nav flex-column nav-pills pt-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" href="/api/admin/adminpage"
-                   aria-controls="v-pills-home" aria-selected="false">Admin</a>
-                <a class="nav-link active" href="/api/user/userpage"
-                   role="tab"
-                   aria-controls="v-pills-profile" aria-selected="true">User</a>
-            </div>
+        <div class="col-md-2 pl-0 pr-0 ">
+            <ul class="nav nav-pills nav-justified mt-3">
+                <li class="nav-item">
+                    <a class="nav-link active text-left " href="">USER</a>
+                </li>
+            </ul>
         </div>
 
         <div class="col-10 px-0">
             <div class="container-fluid">
-                <h1>USER PAGE</h1>
+                <h1>User information page</h1>
                 <div class="tab-content">
                     <div class="tab-pane fade show active">
                         <div class="card">
@@ -61,22 +55,15 @@
                                         <th>ID</th>
                                         <th>NAME</th>
                                         <th>SURNAME</th>
+                                        <th>AGE</th>
                                         <th>EMAIL</th>
                                         <th>SALARY</th>
                                         <th>USERNAME</th>
-                                        <th>ROLES</th>
+                                        <th>Roles</th>
                                     </tr>
-
-                                    <td th:text="${oneUser.getId()}"></td>
-                                    <td th:text="${oneUser.getName()}"></td>
-                                    <td th:text="${oneUser.getSurname()}"></td>
-                                    <td th:text="${oneUser.getEmail()}"></td>
-                                    <td th:text="${oneUser.getSalary()}"></td>
-                                    <td th:text="${oneUser.getUsername()}"></td>
-
-                                    <td>
-                                        <li th:each="role: ${oneUser.getRoles()}" th:text="${role.getName()}"></li>
-                                    </td>
+                                    <tbody id="UserInfo">
+                                    <!-- user.js -->
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -86,16 +73,9 @@
         </div>
     </div>
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+<script src="admin.js" th:src="@{userpage.js}" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
