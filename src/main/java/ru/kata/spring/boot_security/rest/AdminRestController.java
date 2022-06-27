@@ -24,7 +24,7 @@ public class AdminRestController {
         final List<User> users = userService.findAll();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
-                :new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/adminpage/new")
@@ -34,13 +34,15 @@ public class AdminRestController {
     }
 
     @PutMapping("/adminpage/edit")
-    public void update(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
-         userService.updateUser(user, role_id);
+    public ResponseEntity<?> update(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
+        userService.updateUser(user, role_id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/adminpage/delete/{id}")
-    public void removeUser(@PathVariable Long id) {
+    public HttpStatus removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
+        return HttpStatus.GONE;
     }
 
 }
