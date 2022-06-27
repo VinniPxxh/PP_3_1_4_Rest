@@ -73,7 +73,7 @@
                                             <th>EMAIL</th>
                                             <th>SALARY</th>
                                             <th>USERNAME</th>
-                                            <th>Roles</th>
+                                            <th>ROLES</th>
                                             <th>EDIT</th>
                                             <th>DELETE</th>
                                         </tr>
@@ -99,16 +99,16 @@
                                     <label for="email1" class="col-form-label"><b>Email:</b></label>
                                     <input th:type="email" class="form-control" id="email1" th:name="email"/>
                                     <label for="salary1" class="col-form-label"><b>Salary:</b></label>
-                                    <input th:type="salary" class="form-control" id="salary1" th:name="salary"/>
+                                    <input th:type="number" class="form-control" id="salary1" th:name="salary"/>
                                     <label for="username1" class="col-form-label"><b>Username:</b></label>
-                                    <input th:type="username" class="form-control" id="username1" th:name="username"/>
+                                    <input th:type="text" class="form-control" id="username1" th:name="username"/>
                                     <label for="password1" class="col-form-label"><b>Password:</b></label>
                                     <input th:type="password" class="form-control" id="password1" th:name="password"/>
                                     <label for="roles1"><b>Role</b></label>
                                     <select multiple class="form-control form-control-sm"
                                             id="roles1" size="2" required>
-                                        <option value="1">ADMIN</option>
-                                        <option value="2" selected="selected">USER</option>
+                                        <option id="adminSelect1" value="1">ADMIN</option>
+                                        <option id="userSelect1" value="2" selected="selected">USER</option>
                                     </select>
                                     <br>
                                     <button th:type="submit" class="btn btn-success" value="Add new user" id="add">Add
@@ -137,18 +137,18 @@
                                             <label for="age2" class="col-form-label"><b>Age:</b></label>
                                             <input th:type="number" class="form-control" id="age2" th:name="age"/>
                                             <label for="email2" class="col-form-label"><b>Email:</b></label>
-                                            <label for="salary2" class="col-form-label"><b>Salary:</b></label>
-                                            <input th:type="salary" class="form-control" id="salary2" th:name="salary"/>
-                                            <label for="username2" class="col-form-label"><b>Username:</b></label>
-                                            <input th:type="username" class="form-control" id="username2" th:name="username"/>
                                             <input th:type="email" class="form-control" id="email2" th:name="email"/>
+                                            <label for="salary2" class="col-form-label"><b>Salary:</b></label>
+                                            <input th:type="number" class="form-control" id="salary2" th:name="salary"/>
+                                            <label for="username2" class="col-form-label"><b>Username:</b></label>
+                                            <input th:type="text" class="form-control" id="username2" th:name="username"/>
                                             <label for="password2" class="col-form-label"><b>Password:</b></label>
                                             <input th:type="password" class="form-control" id="password2" th:name="password"/>
                                             <label for="roles2"><b>Role</b></label>
                                             <select multiple class="form-control form-control-sm"
                                                     id="roles2" size="2" required>
-                                                <option value="1">ADMIN</option>
-                                                <option value="2" selected>USER</option>
+                                                <option id="adminSelect2" value="1">ADMIN</option>
+                                                <option id="userSelect2" value="2" selected>USER</option>
                                             </select>
                                         </div>
                                         <div class="modal-footer">
@@ -183,9 +183,9 @@
                                             <label for="email3" class="col-form-label"><b>Email:</b></label>
                                             <input th:type="email" class="form-control" id="email3" th:name="email" disabled/>
                                             <label for="salary3" class="col-form-label"><b>Salary:</b></label>
-                                            <input th:type="salary" class="form-control" id="salary3" th:name="salary" disabled/>
-                                            <label for="username3" class="col-form-label"><b>Username:</b></label>
-                                            <input th:type="username" class="form-control" id="username3" th:name="username" disabled/>
+                                            <input th:type="number" class="form-control" id="salary3" th:name="salary" disabled/>
+                                            <label for="username3" lass="col-form-label"><b>Username:</b></label>
+                                            <input th:type="text" class="form-control" id="username3" th:name="username" disabled/>
                                             <label for="roles3"><b>Role</b></label>
                                             <select multiple class="form-control form-control-sm" id="roles3" size="2"
                                                     required disabled>
@@ -225,7 +225,7 @@
                                 <th>EMAIL</th>
                                 <th>SALARY</th>
                                 <th>USERNAME</th>
-                                <th>Roles</th>
+                                <th>ROLES</th>
                             </tr>
                             <tbody id="UserInfo">
                             <!-- user.js -->

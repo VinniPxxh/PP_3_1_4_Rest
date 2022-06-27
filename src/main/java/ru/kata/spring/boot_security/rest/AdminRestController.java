@@ -39,7 +39,7 @@ public class AdminRestController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/adminpage/delete/{id}")
+    @DeleteMapping("/adminpage/{id}")
     public HttpStatus removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
         return HttpStatus.GONE;

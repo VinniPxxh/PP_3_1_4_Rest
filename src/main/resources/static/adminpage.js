@@ -1,8 +1,16 @@
 const url = 'http://localhost:8080/api/restadmin/adminpage/'
+const update_url = 'http://localhost:8080/api/restadmin/adminpage/edit?listRoles'
+const delete_url = 'http://localhost:8080/api/restadmin/adminpage/'
+const add_url = 'http://localhost:8080/api/restadmin/adminpage/new?listRoles'
+
 const addUserForm = document.querySelector('#addUser')
 const editUserForm = document.querySelector('#modalEdit')
 const deleteUserForm = document.querySelector('#modalDelete')
-let currentUserId = null;
+const idOfRoleAdmin1 = document.getElementById('#adminSelect1')
+const idOfRoleUser1 = document.getElementById('#userSelect1')
+const idOfRoleAdmin2 = document.getElementById('#adminSelect2')
+const idOfRoleUser2 = document.getElementById('#userSelect2')
+let currentUserId = null
 
 function getAllUsers() {
     fetch(url)
@@ -33,7 +41,6 @@ function getAllUsers() {
             document.querySelector('#allUsers').innerHTML = temp;
         });
 }
-
 getAllUsers()
 
 function refreshTable() {
@@ -48,12 +55,11 @@ function refreshTable() {
 const addName = document.getElementById('name1')
 const addSurname = document.getElementById('surname1')
 const addAge = document.getElementById('age1')
-const addPassword = document.getElementById('password1')
-const addRoles = document.getElementById('roles1')
 const addEmail = document.getElementById('email1')
 const addSalary = document.getElementById('salary1')
+const addPassword = document.getElementById('password1')
 const addUsername = document.getElementById('username1')
-
+const addRoles = document.getElementById('roles1')
 
 const on = (element, event, selector, handler) => {
     element.addEventListener(event, e => {
@@ -64,7 +70,7 @@ const on = (element, event, selector, handler) => {
 }
 addUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    fetch(url, {
+    fetch(add_url + idOfRoleAdmin1 + ',' + idOfRoleUser1, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -74,8 +80,8 @@ addUserForm.addEventListener('submit', (e) => {
             surname: addSurname.value,
             age: addAge.value,
             email: addEmail.value,
-            salary: addSalary.value,
-            username: addUsername.value,
+            salary:addSalary.value,
+            username:addUsername.value,
             password: addPassword.value,
             roles: [
                 addRoles.value
@@ -104,10 +110,10 @@ on(document, 'click', '#edit-user', e => {
     document.getElementById('surname2').value = userInfo.children[2].innerHTML
     document.getElementById('age2').value = userInfo.children[3].innerHTML
     document.getElementById('email2').value = userInfo.children[4].innerHTML
-    document.getElementById('salary2').value = userInfo.children[5].innerHTML
-    document.getElementById('username2').value = userInfo.children[6].innerHTML
-    document.getElementById('password2').value = userInfo.children[7].innerHTML
-    document.getElementById('roles2').value = userInfo.children[8].innerHTML
+    document.getElementById('salary2').value = userInfo.children[4].innerHTML
+    document.getElementById('username2').value = userInfo.children[4].innerHTML
+    document.getElementById('password2').value = userInfo.children[5].innerHTML
+    document.getElementById('roles2').value = userInfo.children[6].innerHTML
     $("#modalEdit").modal("show")
 
 })
@@ -115,7 +121,7 @@ on(document, 'click', '#edit-user', e => {
 
 editUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    fetch(url, {
+    fetch(update_url + idOfRoleAdmin2 +',' +idOfRoleUser2, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -145,7 +151,7 @@ deleteUserForm.addEventListener('submit', (e) => {
     console.log(e.target.parentNode.parentNode)
     e.preventDefault();
     e.stopPropagation();
-    fetch(url + currentUserId, {
+    fetch(delete_url + currentUserId, {
         method: 'DELETE'
     })
         .then()
@@ -164,8 +170,8 @@ on(document, 'click', '#delete-user', e => {
     document.getElementById('surname3').value = fila2.children[2].innerHTML
     document.getElementById('age3').value = fila2.children[3].innerHTML
     document.getElementById('email3').value = fila2.children[4].innerHTML
-    document.getElementById('salary3').value = fila2.children[5].innerHTML
-    document.getElementById('username3').value = fila2.children[6].innerHTML
-    document.getElementById('roles3').value = fila2.children[7].innerHTML
+    document.getElementById('salary3').value = fila2.children[4].innerHTML
+    document.getElementById('username3').value = fila2.children[4].innerHTML
+    document.getElementById('roles3').value = fila2.children[5].innerHTML
     $("#modalDelete").modal("show")
 })
