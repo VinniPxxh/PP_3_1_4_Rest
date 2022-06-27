@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.service.UserService;
 
 @Controller
-@RequestMapping(value = "/api/admin")
 public class AdminController {
 
     private final UserService userService;

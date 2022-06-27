@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.service.UserService;
 
 @Controller
-@RequestMapping(value = "/api/user")
 public class UserController {
     private final UserService userService;
 
