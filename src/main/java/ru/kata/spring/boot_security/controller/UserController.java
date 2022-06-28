@@ -16,7 +16,7 @@ public class UserController {
     }
 
     @GetMapping("/userpage")
-    public String oneUser() {
+    public String getUser() {
         return "userpage";
     }
 }
