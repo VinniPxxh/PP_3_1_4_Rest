@@ -14,6 +14,7 @@ import ru.kata.spring.boot_security.model.User;
 import ru.kata.spring.boot_security.repository.RoleRepository;
 import ru.kata.spring.boot_security.repository.UserRepository;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 @Service
@@ -31,33 +32,21 @@ public class UserServiceImp implements UserDetailsService, UserService {
 
     @Transactional
     @Override
-    public void saveUser(User user, long[] listRoles) {
-        Set<Role> rolesSet = new HashSet<>();
-        for (int i = 0; i < listRoles.length; i++) {
-            rolesSet.add(roleRepository.findById(listRoles[i]));
-        }
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        user.setRoles(rolesSet);
         userRepository.save(user);
     }
 
     @Transactional
     @Override
-    public void updateUser(User user, long[] role_id) {
-        Set<Role> rolesSet = new HashSet<>();
-        for (int i = 0; i < role_id.length; i++) {
-            rolesSet.add(roleRepository.findById(role_id[i]));
-        }
+    public void updateUser(User user) {
         if (user.getPassword().startsWith("$2a$10$") && user.getPassword().length() == 60) {
             user.setPassword(user.getPassword());
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        user.setRoles(rolesSet);
-        userRepository.save(user);
+        userRepository.merge(user);
     }
-
 
     @Override
     public List<User> findAll() {

@@ -107,8 +107,9 @@
                                     <label for="roles1"><b>Role</b></label>
                                     <select multiple class="form-control form-control-sm"
                                             id="roles1" size="2" required>
-                                        <option id="adminSelect1" value="1">ADMIN</option>
-                                        <option id="userSelect1" value="2" selected="selected">USER</option>
+                                        <div th:each="role_id:${amountOfRoles}">
+                                        <option id="adminSelect1" th:value="*{role_id.getId()}" th:text="*{role_id.getAuthority().replace('ROLE_','')}"></option>
+                                        </div>
                                     </select>
                                     <br>
                                     <button th:type="submit" class="btn btn-success" value="Add new user" id="add">Add
@@ -147,8 +148,9 @@
                                             <label for="roles2"><b>Role</b></label>
                                             <select multiple class="form-control form-control-sm"
                                                     id="roles2" size="2" required>
-                                                <option id="adminSelect2" value="1">ADMIN</option>
-                                                <option id="userSelect2" value="2" selected>USER</option>
+                                                <div th:each="role_id:${amountOfRoles}">
+                                                    <option id="adminSelect2" th:value="*{role_id.getId()}" th:text="*{role_id.getAuthority().replace('ROLE_','')}"></option>
+                                                </div>
                                             </select>
                                         </div>
                                         <div class="modal-footer">

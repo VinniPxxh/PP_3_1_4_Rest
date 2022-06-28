@@ -28,21 +28,21 @@ public class AdminRestController {
     }
 
     @PostMapping("/adminpage/new")
-    public ResponseEntity<?> addUser(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
-        userService.saveUser(user, role_id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public List<User> addUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return userService.findAll();
     }
 
     @PutMapping("/adminpage/edit")
-    public ResponseEntity<?> update(@RequestBody User user, @RequestParam("listRoles") long[] role_id) {
-        userService.updateUser(user, role_id);
+    public ResponseEntity<?> update(@RequestBody User user) {
+        userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/adminpage/{id}")
-    public HttpStatus removeUser(@PathVariable Long id) {
+    public ResponseEntity<Void> removeUser(@PathVariable Long id) {
         userService.deleteById(userService.getUserById(id));
-        return HttpStatus.GONE;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

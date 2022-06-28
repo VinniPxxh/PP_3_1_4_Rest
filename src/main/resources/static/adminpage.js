@@ -1,15 +1,11 @@
 const url = 'http://localhost:8080/api/restadmin/adminpage/'
-const update_url = 'http://localhost:8080/api/restadmin/adminpage/edit?listRoles'
+const update_url = 'http://localhost:8080/api/restadmin/adminpage/edit'
 const delete_url = 'http://localhost:8080/api/restadmin/adminpage/'
 const add_url = 'http://localhost:8080/api/restadmin/adminpage/new?listRoles'
 
 const addUserForm = document.querySelector('#addUser')
 const editUserForm = document.querySelector('#modalEdit')
 const deleteUserForm = document.querySelector('#modalDelete')
-const idOfRoleAdmin1 = document.getElementById('#adminSelect1')
-const idOfRoleUser1 = document.getElementById('#userSelect1')
-const idOfRoleAdmin2 = document.getElementById('#adminSelect2')
-const idOfRoleUser2 = document.getElementById('#userSelect2')
 let currentUserId = null
 
 function getAllUsers() {
@@ -41,6 +37,7 @@ function getAllUsers() {
             document.querySelector('#allUsers').innerHTML = temp;
         });
 }
+
 getAllUsers()
 
 function refreshTable() {
@@ -68,9 +65,31 @@ const on = (element, event, selector, handler) => {
         }
     })
 }
+
 addUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    fetch(add_url + idOfRoleAdmin1 + ',' + idOfRoleUser1, {
+
+    // function addSubmit() {
+    //     let roles = $('[name="roles"]').val()
+    //
+    //     for (let i = 0; i < roles.length; i++) {
+    //         if (roles[i] === 'ROLE_ADMIN') {
+    //             roles[i] = {
+    //                 'id': 2,
+    //                 'role': 'ROLE_ADMIN'
+    //             }
+    //         }
+    //         if (roles[i] === 'ROLE_USER') {
+    //             roles[i] = {
+    //                 'id': 1,
+    //                 'role': 'ROLE_USER'
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // //addSubmit()
+    fetch(add_url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -80,8 +99,8 @@ addUserForm.addEventListener('submit', (e) => {
             surname: addSurname.value,
             age: addAge.value,
             email: addEmail.value,
-            salary:addSalary.value,
-            username:addUsername.value,
+            salary: addSalary.value,
+            username: addUsername.value,
             password: addPassword.value,
             roles: [
                 addRoles.value
@@ -110,10 +129,10 @@ on(document, 'click', '#edit-user', e => {
     document.getElementById('surname2').value = userInfo.children[2].innerHTML
     document.getElementById('age2').value = userInfo.children[3].innerHTML
     document.getElementById('email2').value = userInfo.children[4].innerHTML
-    document.getElementById('salary2').value = userInfo.children[4].innerHTML
-    document.getElementById('username2').value = userInfo.children[4].innerHTML
-    document.getElementById('password2').value = userInfo.children[5].innerHTML
-    document.getElementById('roles2').value = userInfo.children[6].innerHTML
+    document.getElementById('salary2').value = userInfo.children[5].innerHTML
+    document.getElementById('username2').value = userInfo.children[6].innerHTML
+    document.getElementById('password2').value = userInfo.children[7].innerHTML
+    document.getElementById('roles2').value = userInfo.children[8].innerHTML
     $("#modalEdit").modal("show")
 
 })
@@ -121,7 +140,28 @@ on(document, 'click', '#edit-user', e => {
 
 editUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    fetch(update_url + idOfRoleAdmin2 +',' +idOfRoleUser2, {
+
+    // function editSubmit() {
+    //     let roles = $('[name="role"]').val()
+    //
+    //     for (let i = 0; i < roles.length; i++) {
+    //         if (roles[i] === 'ROLE_ADMIN') {
+    //             roles[i] = {
+    //                 'id': 2,
+    //                 'role': 'ROLE_ADMIN'
+    //             }
+    //         }
+    //         if (roles[i] === 'ROLE_USER') {
+    //             roles[i] = {
+    //                 'id': 1,
+    //                 'role': 'ROLE_USER'
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // editSubmit()
+    fetch(update_url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
